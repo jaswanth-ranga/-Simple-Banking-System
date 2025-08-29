@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Transactions</title>
+    <style>
+        body { max-width: 400px; margin: auto; padding: 20px; font-family: Arial, sans-serif; }
+        input, button { display: block; width: 100%; padding: 10px; margin: 10px 0; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #output { margin-top: 15px; padding: 10px; border: 1px solid #ccc; background: #f9f9f9; white-space: pre-wrap; min-height: 50px; }
+    </style>
+</head>
+<body>
+
+<h2>Transactions</h2>
+<label for="amount">Amount:</label>
+<input type="number" id="amount" placeholder="Enter amount" />
+
+<button onclick="deposit()">Deposit</button>
+<button onclick="withdraw()">Withdraw</button>
+<button onclick="checkBalance()">Check Balance</button>
+<button onclick="logout()">Logout</button>
+
+<div id="output"></div>
+
+<script>
+    let accNo = sessionStorage.getItem('accountNumber');
+    if (!accNo) {
+      alert('No account found. Redirecting to login.');
+      window.location.href = 'index.html';
+    }
+
+    function appendOutput(msg) {
+      const output = document.getElementById('output');
+      output.textContent += msg + '\n';
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function updateBalance(change) {
+      let balance = parseFloat(sessionStorage.getItem('balance')) || 0;
+      balance += change;
+      sessionStorage.setItem('balance', balance);
+      return balance;
+    }
+
+    function deposit() {
+      const amt = parseFloat(document.getElementById('amount').value);
+      if (isNaN(amt) || amt <= 0) {
+        appendOutput('❌ Enter a valid deposit amount.');
+        return;
+      }
+      const newBalance = updateBalance(amt);
+      appendOutput(`✅ Deposited: $${amt.toFixed(2)}. New Balance: $${newBalance.toFixed(2)}`);
+    }
+
+    function withdraw() {
+      const amt = parseFloat(document.getElementById('amount').value);
+      if (isNaN(amt) || amt <= 0) {
+        appendOutput('❌ Enter a valid withdrawal amount.');
+        return;
+      }
+
+      let balance = parseFloat(sessionStorage.getItem('balance')) || 0;
+      if (amt > balance) {
+        appendOutput('❌ Insufficient funds.');
+        return;
+      }
+      const newBalance = updateBalance(-amt);
+      appendOutput(`✅ Withdrawn: $${amt.toFixed(2)}. New Balance: $${newBalance.toFixed(2)}`);
+    }
+
+    function checkBalance() {
+      const balance = parseFloat(sessionStorage.getItem('balance')) || 0;
+      appendOutput(`💰 Current Balance: $${balance.toFixed(2)}`);
+    }
+
+    function logout() {
+      sessionStorage.clear();
+      window.location.href = 'index.html';
+    }
+</script>
+
+</body>
+</html>

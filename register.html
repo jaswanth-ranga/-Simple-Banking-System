@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Account</title>
+  <style>
+    body { max-width: 400px; margin: auto; font-family: Arial, sans-serif; padding: 20px; }
+    label, input, textarea { display: block; width: 100%; padding: 8px; margin: 8px 0; }
+    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; margin-top: 10px; }
+    button:hover { background: #0056b3; }
+    .gender-group { display: flex; gap: 10px; margin: 8px 0; }
+    .gender-group label { margin-right: 10px; font-weight: normal; }
+  </style>
+</head>
+<body>
+
+<h2>Create Account</h2>
+
+<label for="name">Name:</label>
+<input type="text" id="name" placeholder="Enter full name" />
+
+<label for="fatherName">Father's Name:</label>
+<input type="text" id="fatherName" placeholder="Enter father's name" />
+
+<label for="dob">Date of Birth:</label>
+<input type="date" id="dob" />
+
+<div class="gender-group">
+  <label><input type="radio" name="gender" value="Male" checked /> Male</label>
+  <label><input type="radio" name="gender" value="Female" /> Female</label>
+</div>
+
+<label for="emailOrMobile">Email or Mobile No:</label>
+<input type="text" id="emailOrMobile" placeholder="Enter email or mobile number" />
+
+<label for="idDetails">PAN Card or ID Details:</label>
+<input type="text" id="idDetails" placeholder="Enter PAN or other ID" />
+
+<label for="address">Address:</label>
+<textarea id="address" placeholder="Enter your address" rows="3"></textarea>
+
+<label for="accNo">Account Number:</label>
+<input type="text" id="accNo" placeholder="Create account number" />
+
+<label for="password">Password:</label>
+<input type="password" id="password" placeholder="Create a password" />
+
+<button onclick="register()">Register</button>
+
+<script>
+  function register() {
+    const name = document.getElementById('name').value.trim();
+    const fatherName = document.getElementById('fatherName').value.trim();
+    const dob = document.getElementById('dob').value;
+    const genderElems = document.getElementsByName('gender');
+    let gender = '';
+    for (const elem of genderElems) { if (elem.checked) { gender = elem.value; break; } }
+    const emailOrMobile = document.getElementById('emailOrMobile').value.trim();
+    const idDetails = document.getElementById('idDetails').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const accNo = document.getElementById('accNo').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!name || !fatherName || !dob || !gender || !emailOrMobile || !idDetails || !address || !accNo || !password) {
+      alert('Please fill all fields.');
+      return;
+    }
+
+    // Save info in sessionStorage (simulate backend)
+    sessionStorage.setItem('name', name);
+    sessionStorage.setItem('fatherName', fatherName);
+    sessionStorage.setItem('dob', dob);
+    sessionStorage.setItem('gender', gender);
+    sessionStorage.setItem('emailOrMobile', emailOrMobile);
+    sessionStorage.setItem('idDetails', idDetails);
+    sessionStorage.setItem('address', address);
+    sessionStorage.setItem('accountNumber', accNo);
+    sessionStorage.setItem('password', password);
+    sessionStorage.setItem('balance', '0'); // initial balance
+
+    alert('Registration successful! Please login now.');
+    window.location.href = 'index.html';
+  }
+</script>
+
+</body>
+</html>

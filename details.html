@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Account Details</title>
+    <style>
+        body { max-width: 400px; margin: auto; font-family: Arial, sans-serif; padding: 20px; }
+        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; margin-top: 20px; }
+        button:hover { background: #0056b3; }
+        p { margin: 5px 0; }
+    </style>
+</head>
+<body>
+
+<h2>Account Details</h2>
+
+<p><strong>Name:</strong> <span id="name"></span></p>
+<p><strong>Father's Name:</strong> <span id="fatherName"></span></p>
+<p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+<p><strong>Gender:</strong> <span id="gender"></span></p>
+<p><strong>Email/Mobile:</strong> <span id="emailOrMobile"></span></p>
+<p><strong>ID Details:</strong> <span id="idDetails"></span></p>
+<p><strong>Address:</strong> <span id="address"></span></p>
+<p><strong>Account Number:</strong> <span id="accountNumber"></span></p>
+<p><strong>Balance:</strong> $<span id="balance"></span></p>
+
+<button onclick="goToTransactions()">Proceed to Transactions</button>
+<button onclick="logout()">Logout</button>
+
+<script>
+    function fillDetails() {
+      const fields = ['name', 'fatherName', 'dob', 'gender', 'emailOrMobile', 'idDetails', 'address', 'accountNumber', 'balance'];
+      fields.forEach(field => {
+        const value = sessionStorage.getItem(field) || '';
+        document.getElementById(field).textContent = value;
+      });
+    }
+
+    function goToTransactions() {
+      window.location.href = 'transactions.html';
+    }
+
+    function logout() {
+      sessionStorage.clear();
+      alert('Logged out successfully.');
+      window.location.href = 'index.html';
+    }
+
+    // Load details on page load
+    window.onload = fillDetails;
+</script>
+
+</body>
+</html>

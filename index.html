@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Bank Login</title>
+    <style>
+        body {
+          max-width: 400px;
+          margin: auto;
+          font-family: Arial, sans-serif;
+          padding: 20px;
+        }
+        label, input, button {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+        }
+        button {
+          background-color: #007bff;
+          color: white;
+          border: none;
+          cursor: pointer;
+        }
+        button:hover {
+          background-color: #0056b3;
+        }
+        .error {
+          color: red;
+          font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<form id="loginForm" onsubmit="return login(event)">
+    <label for="accNo">Account Number:</label>
+    <input type="text" id="accNo" name="accNo" placeholder="Enter your account number" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+    <button type="submit">Login</button>
+</form>
+
+<button onclick="goToRegister()">Create Account</button>
+
+<div id="errorMsg" class="error"></div>
+
+<script>
+    function login(event) {
+      event.preventDefault(); // Prevent form from submitting normally
+
+      const accNo = document.getElementById('accNo').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorDiv = document.getElementById('errorMsg');
+
+      errorDiv.textContent = "";
+
+      if (!accNo || !password) {
+        errorDiv.textContent = "Please enter both account number and password.";
+        return false;
+      }
+
+      // For demo: any non-empty inputs are accepted
+      alert("Login successful! Proceeding...");
+      // Redirect to next page or show next UI section
+      window.location.href = "details.html"; // update this filename if different
+
+      return false;
+    }
+
+    function goToRegister() {
+      window.location.href = 'register.html'; // update if your register page name differs
+    }
+</script>
+
+</body>
+</html>
